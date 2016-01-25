@@ -299,3 +299,60 @@
 
   </emu-clause>
 </emu-clause>
+
+<emu-clause id="sec-locale-operations">
+  <h1>Locale Operations</h1>
+
+  <p>
+    Intl object has the following properties:
+  </p>
+  <emu-clause id="sec-getCanonicalLocales">
+    <h1>Intl.getCanonicalLocales (locales)</h1>
+    <p>
+      getCanonicalLocales takes an Array of strings representing locale codes and returns an Array of canonicalized versions of those locale codes.
+      It performs the following steps:
+    </p>
+
+    <emu-alg>
+      1. Let _result_ be ArrayCreate(0).
+      1. Set _locales_ to be the result of CanonicalizeLocaleList(_locales_).
+      1. Let _n_ be 0.
+      1. For each _locale_ in _locales_, do:
+        1. Perform ? CreateDataProperty(_result_, ? ToString(_n_), _locale_).
+        1. Increment _n_ by 1.
+      1. Return _result_.
+    </emu-alg>
+
+  </emu-clause>
+
+  <emu-clause id="sec-getParentLocales">
+    <h1>Intl.getParentLocales (locale)</h1>
+    <p>
+      getParentLocales takes a locale code and returns an Array of canonicalized locale codes that constitute parent locale chain for the argument.
+    </p>
+
+    <emu-alg>
+      1. Let _localeChain_ be ArrayCreate(0).
+      1. Let _candidate_ be the result of CanonicalizeLanguageTag(_locale_).
+      1. Let _n_ be 0.
+      1. Perform ? CreateDataProperty(_localeChain_, ? ToString(_n_), _candidate_).
+      1. Let _pos_ be Call(*%StringProto_lastIndexOf%*, _candidate_, "-").
+      1. Repeat while _pos_ is greater than -1:
+        1. If _pos_ is greater or equal to 2 and the result of Call(*%StringProto_charAt%*, _candidate_, _pos_ - 2) equals "-", do:
+          1.  _pos_ equals _pos_ - 2.
+        1. Set _candidate_ to be Call(*%StringProto_substring%*, _candidate_, 0, _pos_).
+        1. Perform ? CreateDataProperty(_localeChain_, ? ToString(_n_), _candidate_).
+        1. Set _pos_ to be Call(*%StringProto_lastIndexOf%*, _candidate_, "-").
+        1. Increment _n_ by 1.
+      1. Return _localeChain_.
+    </emu-alg>
+
+  </emu-clause>
+
+  <emu-clause id="sec-resolveLocaleInfo">
+    <h1>Intl.resolveLocaleInfo (locale, options)</h1>
+    <p>
+      resolveLocaleInfo takes a locale code and options, and returns an object with meta information about the locale.
+    </p>
+  </emu-clause>
+</emu-clause>
