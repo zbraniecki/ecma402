@@ -178,6 +178,15 @@
             1. Else if _numberFormat_.[[currencyDisplay]] is *"name"*, then
               1. Let _cd_ be an ILD string representing _currency_ in long form. If the implementation does not have such a representation of _currency_, then use _currency_ itself.
             1. Add new part record { [[type]]: "currency", [[value]]: _cd_ } as a new element of the list _result_.
+          1. Else if _p_ is equal *"{minusSign}"*, then:
+            1. Let _minusSignSymbol_ be the ILND String representing the minus sign.
+            1. Add new part record { [[type]]: *"minusSign"*, [[value]]: _minusSignSymbol_ } as a new element of the list _result_.
+          1. Else if _p_ is equal *"{plusSign}"*, then:
+            1. Let _plusSignSymbol_ be the ILND String representing the plus sign.
+            1. Add new part record { [[type]]: *"plusSign"*, [[value]]: _plusSignSymbol_ } as a new element of the list _result_.
+          1. Else if _p_ is equal *"{percentSign}"*, then:
+            1. Let _percentSignSymbol_ be the ILND String representing the percent sign.
+            1. Add new part record { [[type]]: *"percentSign"*, [[value]]: _percentSignSymbol_ } as a new element of the list _result_.
           1. Else,
             1. Add new part record { [[type]]: "separtor", [[value]]: _p_ } as a new element of the list _result_.
           1. Set _index_ to _endIndex_ + 1.
@@ -464,7 +473,7 @@
 
       <ul>
         <li>The array that is the value of the "nu" property of any locale property of [[localeData]] must not include the values "native", "traditio", or "finance".</li>
-        <li>[[localeData]][locale] must have a patterns property for all locale values. The value of this property must be an object, which must have properties with the names of the three number format styles: *"decimal"*, *"percent"*, and *"currency"*. Each of these properties in turn must be an object with the properties positivePattern and negativePattern. The value of these properties must be string values that contain a substring *"{number}"*; the values within the currency property must also contain a substring *"{currency}"*. The pattern strings must not contain any characters in the General Category “Number, decimal digit" as specified by the Unicode Standard.</li>
+        <li>[[localeData]][locale] must have a patterns property for all locale values. The value of this property must be an object, which must have properties with the names of the three number format styles: *"decimal"*, *"percent"*, and *"currency"*. Each of these properties in turn must be an object with the properties positivePattern and negativePattern. The value of these properties must be string values that contain a substring *"{number}"* and optionally one or more of the substrings *"{minusSign}"*, *"{plusSign}"*, *"{percentSign}"*; the values within the currency property must also contain a substring *"{currency}"*. The pattern strings must not contain any characters in the General Category “Number, decimal digit" as specified by the Unicode Standard.</li>
       </ul>
 
       <emu-note>
