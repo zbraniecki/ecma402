@@ -126,9 +126,8 @@
           1. Set _endIndex_ to Call(*%StringProto_indexOf%*, _pattern_, *"}"*, _beginIndex_)
           1. If _endIndex_ is *false*, throw new Error exception.
           1. If _beginIndex_ is greater than _index_, then:
-            1. Let _separator_ be a new Record.
-            1. Let _separatorValue_ be a substring of _pattern_ from position _index_, inclusive, to position _beginIndex_, exclusive.
-            1. Add new part record { [[type]]: *"separator"*, [[value]]: _separatorValue_ } as a new element of the list _result_.
+            1. Let _literal_ be a substring of _pattern_ from position _index_, inclusive, to position _beginIndex_, exclusive.
+            1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
           1. Let _p_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _endIndex_, inclusive.
           1. If _p_ is equal *"{number}"*, then:
             1. If _x_ is *NaN*,
@@ -188,13 +187,12 @@
               1. Let _cd_ be an ILD string representing _currency_ in long form. If the implementation does not have such a representation of _currency_, then use _currency_ itself.
             1. Add new part record { [[type]]: *"currency"*, [[value]]: _cd_ } as a new element of the list _result_.
           1. Else,
-            1. Add new part record { [[type]]: *"separator"*, [[value]]: _p_ } as a new element of the list _result_.
+            1. Add new part record { [[type]]: *"literal"*, [[value]]: _p_ } as a new element of the list _result_.
           1. Set _index_ to _endIndex_ + 1.
           1. Set _beginIndex_ to Call(*%StringProto_indexOf%*, _pattern_, "}", _index_)
         1. If _endIndex_ is less than _length_, then:
-          1. Let _separator_ to be a new Record.
-          1. Let _separatorValue_ be the substring of _pattern_ from position _endIndex_, exclusive, to position _length_, exclusive.
-          1. Add new part record { [[type]]: *"separator"*, [[value]]: _separatorValue_ } as a new element of the list _result_.
+          1. Let _literal_ be the substring of _pattern_ from position _endIndex_, exclusive, to position _length_, exclusive.
+          1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
         1. Return _result_.
       </emu-alg>
 
