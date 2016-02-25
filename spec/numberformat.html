@@ -149,25 +149,25 @@
               1. Let _decimalSepIndex_ be Call(*%StringProto_indexOf%*, _n_, *"."*, 0).
               1. If _decimalSepIndex_ > 0, then:
                 1. Let _integer_ be the substring of _n_ from position 0, inclusive, to position _decimalSepIndex_, exclusive.
-                1. Let _decimal_ be the substring of _n_ from position _decimalSepIndex_, exclusive, to the end of _n_.
+                1. Let _fraction_ be the substring of _n_ from position _decimalSepIndex_, exclusive, to the end of _n_.
               1. Else:
                 1. Let _integer_ be _n_.
-                1. Let _decimal_ be *undefined*.
+                1. Let _fraction_ be *undefined*.
               1. If the value of the _numberFormat_.[[useGrouping]] is *true*,
                 1. Let _groupSepSymbol_ be the ILND String representing the grouping separator.
                 1. Let _groups_ be a List whose elements are, in left to right order, the substrings defined by ILND set of locations within the _integer_.
                 1. Assert: The number of elements in _groups_ List is greater than *0*.
                 1. Repeat, while _groups_ List is not empty:
-                  1. Remove the first element from _groups_ and let _group_ be the value of that element.
-                  1. Add new part record { [[type]]: *"group"*, [[value]]: _group_ } as a new element of the list _result_.
+                  1. Remove the first element from _groups_ and let _integerGroup_ be the value of that element.
+                  1. Add new part record { [[type]]: *"integer"*, [[value]]: _integerGroup_ } as a new element of the list _result_.
                   1. If _groups_ List is not empty, then:
-                    1. Add new part record { [[type]]: *"groupSeparator"*, [[value]]: _groupSepSymbol_ } as a new element of the list _result_.
+                    1. Add new part record { [[type]]: *"group"*, [[value]]: _groupSepSymbol_ } as a new element of the list _result_.
               1. Else,
-                1. Add new part record { [[type]]: *"group"*, [[value]]: _integer_ } as a new element of the list _result_.
-              1. If _decimal_ is not *undefined*, then:
+                1. Add new part record { [[type]]: *"integer"*, [[value]]: _integer_ } as a new element of the list _result_.
+              1. If _fraction_ is not *undefined*, then:
                 1. Let _decimalSepSymbol_ be the ILND String representing the decimal separator.
-                1. Add new part record { [[type]]: *"decimalSeparator"*, [[value]]: _decimalSepSymbol_ } as a new element of the list _result_.
-                1. Add new part record { [[type]]: *"decimal"*, [[value]]: _decimal_ } as a new element of the list _result_.
+                1. Add new part record { [[type]]: *"decimal"*, [[value]]: _decimalSepSymbol_ } as a new element of the list _result_.
+                1. Add new part record { [[type]]: *"fraction"*, [[value]]: _fraction_ } as a new element of the list _result_.
           1. Else if _p_ is equal *"{minusSign}"*, then:
             1. Let _minusSignSymbol_ be the ILND String representing the minus sign.
             1. Add new part record { [[type]]: *"minusSign"*, [[value]]: _minusSignSymbol_ } as a new element of the list _result_.
