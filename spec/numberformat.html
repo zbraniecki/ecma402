@@ -124,7 +124,7 @@
         1. Let _length_ be the number of code units in _pattern_.
         1. Repeat while _beginIndex_ is an integer index into _pattern_:
           1. Set _endIndex_ to Call(*%StringProto_indexOf%*, _pattern_, *"}"*, _beginIndex_)
-          1. If _endIndex_ is *false*, throw new Error exception.
+          1. If _endIndex_ = -1, throw new Error exception.
           1. If _beginIndex_ is greater than _nextIndex_, then:
             1. Let _literal_ be a substring of _pattern_ from position _nextIndex_, inclusive, to position _beginIndex_, exclusive.
             1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
