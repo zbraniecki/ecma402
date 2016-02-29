@@ -518,9 +518,8 @@
 
       <emu-alg>
         1. Let _nf_ be *this* value.
-        1. If Type(_nf_) is not Object, throw a *TypeError* exception.
-        1. If _nf_ does not have an [[initializedNumberFormat]] internal slot, throw a *TypeError* exception.
-        1. If _nf_.[[boundFormat]] is *undefined*, then
+        1. Assert: Type(_nf_) is Object and _nf_ has an [[initializedNumberFormat]] internal slot whose value is *true*.
+        1. If the [[boundFormat]] internal slot of _nf_ is *undefined*, then
           1. Let _F_ be a new built-in function object as defined in Number Format Functions (<emu-xref href="#sec-number-format-functions"></emu-xref>).
           1. Let _bf_ be BoundFunctionCreate(_F_, _nf_, « »).
           1. Perform ! DefinePropertyOrThrow(_bf_, `"length"`, PropertyDescriptor {[[Value]]: 1, [[Writable]]: *false*, [[Enumerable]]: *false*, [[Configurable]]: *true*}).
@@ -538,8 +537,7 @@
 
       <emu-alg>
         1. Let _nf_ be *this* value.
-        1. If Type(_nf_) is not Object, throw a *TypeError* exception.
-        1. If _nf_ does not have an [[initializedNumberFormat]] internal slot, throw a *TypeError* exception.
+        1. Assert: Type(_nf_) is Object and _nf_ has an [[initializedNumberFormat]] internal slot whose value is *true*.
         1. If _value_ is not provided, let _value_ be *undefined*.
         1. Let _x_ be ? ToNumber(_value_).
         1. Return ? FormatNumberToParts(_nf_, _x_).
