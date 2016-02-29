@@ -234,15 +234,14 @@
       </p>
     </emu-clause>
 
-    <emu-clause id="alg-CreateDateTimeParts">
-
-      <h1>CreateDateTimeParts(dateTimeFormat, x)</h1>
+    <emu-clause id="sec-formatdatetimetoparts" aoid="FormatDateTimeToParts">
+      <h1>FormatDateTimeToParts(dateTimeFormat, x)</h1>
 
       <p>
-        The CreateDateTimeParts abstract operation is called with arguments _dateTimeFormat_ (which must be an object initialized as a DateTimeFormat) and _x_ (which must be a Number value), and performs the following steps:
+        The *FormatDateTimeToParts* abstract operation is called with arguments _dateTimeFormat_ (which must be an object initialized as a DateTimeFormat) and _x_ (which must be a Number value), interprets _x_ as a time value as specified in ES2015, 20.3.1.1, and creates the corresponding parts according to the effective locale and the formatting options of _dateTimeFormat_. The following steps are taken:
       </p>
 
-      <emu-alg aoid="CreateDateTimeParts">
+      <emu-alg>
         1. If _x_ is not a finite Number, throw a *RangeError* exception.
         1. Let _locale_ be the value of _dateTimeFormat_.[[locale]].
         1. Let _nf_ be ? Construct(%NumberFormat%, « [locale], {useGrouping: *false*} »).
@@ -297,10 +296,6 @@
       </emu-alg>
 
       <emu-note>
-        CreateDateTimeParts abstract operation interpretes _x_ as a time value as specified in ES2015, 20.3.1.1; and create the corresponding parts according to the effective locale and the formatting options of _dateTimeFormat_.
-      </emu-note>
-
-      <emu-note>
         It is recommended that implementations use the locale and calendar dependent strings provided by the Common Locale Data Repository (available at <a href="http://cldr.unicode.org/">http://cldr.unicode.org/</a>), and use CLDR "abbreviated" strings for DateTimeFormat "short" strings, and CLDR "wide" strings for DateTimeFormat "long" strings.
       </emu-note>
 
@@ -310,8 +305,7 @@
 
     </emu-clause>
 
-    <emu-clause id="alg-FormatDateTime" aoid="DateTimeFormat">
-
+    <emu-clause id="sec-formatdatetime" aoid="FormatDateTime">
       <h1>FormatDateTime(dateTimeFormat, x)</h1>
 
       <p>
@@ -319,35 +313,10 @@
       </p>
 
       <emu-alg>
-        1. Let _parts_ be CreateDateTimeParts(_dateTimneFormat_, _x_).
-        1. Let _result_ be an empty string.
+        1. Let _parts_ be FormatDateTimeToParts(_dateTimeFormat_, _x_).
+        1. Let _result_ be an empty String.
         1. For each _part_ in _parts_, do:
           1. Set _result_ to a String value produced by concatenating _result_ and _part_.[[value]].
-        1. Return _result_.
-      </emu-alg>
-
-    </emu-clause>
-
-    <emu-clause id="alg-FormatToPartDateTime" aoid="DateTimeFormatToParts">
-
-      <h1>FormatToPartDateTime(dateTimeFormat, x)</h1>
-
-      <p>
-        The FormatToPartDateTime abstract operation is called with arguments _dateTimeFormat_ (which must be an object initialized as a DateTimeFormat) and _x_ (which must be a Number value), and performs the following steps:
-      </p>
-
-      <emu-alg>
-        1. Let _parts_ be CreateDateTimeParts(_dateTimneFormat_, _x_).
-        1. Let _result_ be ArrayCreate(0).
-        1. Let _n_ be 0.
-        1. For each _part_ in _parts_, do:
-          1. Let _O_ be ObjectCreate(%ObjectPrototype%).
-          1. Let _typeDesc_ be the PropertyDescriptor{[[Value]]: _part_.[[type]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}.
-          1. Perform ? DefinePropertyOrThrow(_O_, "type", _typeDesc_).
-          1. Let _valueDesc_ be the PropertyDescriptor{[[Value]]: _part_.[[value]], [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true}.
-          1. Perform ? DefinePropertyOrThrow(_O_, "value", _valueDesc_).
-          1. Perform ? CreateDataProperty(_result_, ? ToString(_n_), _O_).
-          1. Increment _n_ by 1.
         1. Return _result_.
       </emu-alg>
 
