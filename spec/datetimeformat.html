@@ -234,32 +234,6 @@
       </p>
     </emu-clause>
 
-    <emu-clause id="sec-datetime-formatToParts-functions">
-      <h1>DateTime FormatToParts Functions</h1>
-
-      <p>
-        A DateTime formatToParts function is an anonymous function that optionally takes an argument _date_. It performs the following steps:
-      </p>
-
-      <emu-alg>
-        1. Let _dtf_ be the *this* value.
-        1. Assert: Type(_dtf_) is Object and _dtf_ has an [[initializedDateTimeFormat]] internal slot whose value is *true*.
-        1. If _date_ is not provided or is *undefined*, then
-          1. Let _x_ be *%Date_now%*().
-        1. Else,
-          1. Let _x_ be ? ToNumber(_date_).
-        1. Return FormatToPartsDateTime(_dtf_, _x_).
-      </emu-alg>
-
-      <emu-note>
-        The function returned by [[Get]] is bound to this DateTimeFormat object so that it can be passed directly to Array.prototype.map or other functions.
-      </emu-note>
-
-      <p>
-        The value of the [[Set]] attribute is *undefined*.
-      </p>
-    </emu-clause>
-
     <emu-clause id="alg-CreateDateTimeParts">
 
       <h1>CreateDateTimeParts(dateTimeFormat, x)</h1>
@@ -557,22 +531,21 @@
     </emu-clause>
 
     <emu-clause id="sec-Intl.DateTimeFormat.prototype.formatToParts">
-      <h1>get Intl.DateTimeFormat.prototype.formatToParts</h1>
+      <h1>Intl.DateTimeFormat.prototype.formatToParts ([ date ])</h1>
 
       <p>
-        Intl.DateTimeFormat.prototype.formatToParts is an accessor property whose set accessor function is *undefined*. Its get accessor function performs the following steps:
+        When the *Intl.DateTimeFormat.prototype.formatToParts* is called with an optional argument _date_, the following steps are taken:
       </p>
 
       <emu-alg>
         1. Let _dtf_ be *this* value.
         1. If Type(_dtf_) is not Object, throw a *TypeError* exception.
-        1. If _dtf_ does not have a [[boundFormatToParts]] internal slot, throw a *TypeError* exception.
-        1. If the [[boundFormatToParts]] internal slot of _dtf_ is *undefined*, then
-          1. Let _F_ be a new built-in function object as defined in DateTime Format Functions (<emu-xref href="#sec-datetime-formatToParts-functions"></emu-xref>).
-          1. The value of _F_’s *length* property is 1.
-          1. Let _bf_ be BoundFunctionCreate(_F_, _dft_).
-          1. Set _dtf_.[[boundFormatToParts]] to _bf_.
-        1. Return _dtf_.[[boundFormatToParts]].
+        1. If _dtf_ does not have an [[initializedDateTimeFormat]] internal slot, throw a *TypeError* exception.
+        1. If _date_ is not provided or is *undefined*, then
+          1. Let _x_ be *%Date_now%*().
+        1. Else,
+          1. Let _x_ be ? ToNumber(_date_).
+        1. Return ? FormatDateTimeToParts(_dtf_, _x_).
       </emu-alg>
     </emu-clause>
 
