@@ -257,9 +257,8 @@
           1. Set _endIndex_ to Call(*%StringProto_indexOf%*, _pattern_, "}", _beginIndex_)
           1. If _endIndex_ is *false*, throw new Error exception.
           1. If _beginIndex_ is greater than _nextIndex_, then:
-            1. Let _separator_ be a new Record.
-            1. Let _separatorValue_ be a substring of _pattern_ from position _nextIndex_, inclusive, to position _beginIndex_, exclusive.
-            1. Add new part record { [[type]]: "separator", [[value]]: _separatorValue_ } as a new element of the list _result_.
+            1. Let _literal_ be a substring of _pattern_ from position _nextIndex_, inclusive, to position _beginIndex_, exclusive.
+            1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
           1. Let _p_ be the substring of _pattern_ from position _beginIndex_, exclusive, to position _endIndex_, exclusive.
           1. If _p_ matches a Property column of the row in Table 3, then:
             1. Let _f_ be the value of the [[<_p_>]] internal slot of _dateTimeFormat_.
@@ -282,17 +281,15 @@
               1. Let _fv_ be an implementation and locale dependent String value representing "post meridiem";
             1. Else,
               1. Let _fv_ be an implementation and locale dependent String value representing "ante meridiem".
-            1. Add new part record { [[type]]: "dayperiod", [[value]]: _fv_ } as a new element of the list _result_.
+            1. Add new part record { [[type]]: *"dayPeriod"*, [[value]]: _fv_ } as a new element of the list _result_.
           1. Else,
-            1. <emu-note>Unknown token</emu-note>
-            1. Let _separatorValue_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _endIndex_, inclusive.
-            1. Add new part record { [[type]]: "separtor", [[value]]: _separatorValue_ } as a new element of the list _result_.
+            1. Let _literal_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _endIndex_, inclusive.
+            1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
           1. Set _nextIndex_ to _endIndex_ + 1.
           1. Set _beginIndex_ to Call(*%StringProto_indexOf%*, _pattern_, "}", _nextIndex_)
         1. If _nextIndex_ is less than _length_, then:
-          1. Let _separator_ to be a new Record.
-          1. Let _separatorValue_ be the substring of _pattern_ from position _nextIndex_, inclusive, to position _length_, exclusive.
-          1. Add new part record { [[type]]: "separator", [[value]]: _separatorValue_ } as a new element of the list _result_.
+          1. Let _literal_ be the substring of _pattern_ from position _nextIndex_, inclusive, to position _length_, exclusive.
+          1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
         1. Return _result_.
       </emu-alg>
 
