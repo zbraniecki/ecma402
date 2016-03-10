@@ -286,6 +286,7 @@
             1. Else,
               1. Let _fv_ be an implementation and locale dependent String value representing "ante meridiem".
             1. Add new part record { [[type]]: *"dayPeriod"*, [[value]]: _fv_ } as a new element of the list _result_.
+          1. Else,
             1. Let _literal_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _endIndex_, inclusive.
             1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
           1. Set _nextIndex_ to _endIndex_ + 1.
