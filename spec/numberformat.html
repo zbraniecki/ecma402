@@ -128,9 +128,8 @@
           1. If _beginIndex_ is greater than _nextIndex_, then:
             1. Let _literal_ be a substring of _pattern_ from position _nextIndex_, inclusive, to position _beginIndex_, exclusive.
             1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
-          1. Set _nextIndex_ to _endIndex_ + 1.
-          1. Let _p_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _nextIndex_, exclusive.
-          1. If _p_ is equal *"{number}"*, then:
+          1. Let _p_ be the substring of _pattern_ from position _beginIndex_, exclusive, to position _endIndex_, exclusive.
+          1. If _p_ is equal *"number"*, then:
             1. If _x_ is *NaN*,
               1. Let _n_ be an ILD String value indicating the *NaN* value.
               1. Add new part record { [[type]]: *"nan"*, [[value]]: _n_ } as a new element of the list _result_.
@@ -169,16 +168,16 @@
                 1. Let _decimalSepSymbol_ be the ILND String representing the decimal separator.
                 1. Add new part record { [[type]]: *"decimal"*, [[value]]: _decimalSepSymbol_ } as a new element of the list _result_.
                 1. Add new part record { [[type]]: *"fraction"*, [[value]]: _fraction_ } as a new element of the list _result_.
-          1. Else if _p_ is equal *"{plusSign}"*, then:
+          1. Else if _p_ is equal *"plusSign"*, then:
             1. Let _plusSignSymbol_ be the ILND String representing the plus sign.
             1. Add new part record { [[type]]: *"plusSign"*, [[value]]: _plusSignSymbol_ } as a new element of the list _result_.
-          1. Else if _p_ is equal *"{minusSign}"*, then:
+          1. Else if _p_ is equal *"minusSign"*, then:
             1. Let _minusSignSymbol_ be the ILND String representing the minus sign.
             1. Add new part record { [[type]]: *"minusSign"*, [[value]]: _minusSignSymbol_ } as a new element of the list _result_.
-          1. Else if _p_ is equal *"{percentSign}"* and _numberFormat_.[[style]] is *"percent"*, then:
+          1. Else if _p_ is equal *"percentSign"* and _numberFormat_.[[style]] is *"percent"*, then:
             1. Let _percentSignSymbol_ be the ILND String representing the percent sign.
             1. Add new part record { [[type]]: *"percentSign"*, [[value]]: _percentSignSymbol_ } as a new element of the list _result_.
-          1. Else if _p_ is equal *"{currency}"* and _numberFormat_.[[style]] is *"currency"*, then:
+          1. Else if _p_ is equal *"currency"* and _numberFormat_.[[style]] is *"currency"*, then:
             1. Let _currency_ be the value of _numberFormat_.[[currency]].
             1. If _numberFormat_.[[currencyDisplay]] is *"code"*, then
               1. Let _cd_ be _currency_.
@@ -188,7 +187,9 @@
               1. Let _cd_ be an ILD string representing _currency_ in long form. If the implementation does not have such a representation of _currency_, then use _currency_ itself.
             1. Add new part record { [[type]]: *"currency"*, [[value]]: _cd_ } as a new element of the list _result_.
           1. Else,
-            1. Add new part record { [[type]]: *"literal"*, [[value]]: _p_ } as a new element of the list _result_.
+            1. Let _literal_ be the substring of _pattern_ from position _beginIndex_, inclusive, to position _endIndex_, inclusive.
+            1. Add new part record { [[type]]: *"literal"*, [[value]]: _literal_ } as a new element of the list _result_.
+          1. Set _nextIndex_ to _endIndex_ + 1.
           1. Set _beginIndex_ to Call(*%StringProto_indexOf%*, _pattern_, "{", _nextIndex_)
         1. If _nextIndex_ is less than _length_, then:
           1. Let _literal_ be the substring of _pattern_ from position _nextIndex_, inclusive, to position _length_, exclusive.
